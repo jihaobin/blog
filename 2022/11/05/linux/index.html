@@ -1,0 +1,670 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>linux | blog</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux 笔记 一.虚拟机相关知识： 1，网络连接模式：NAT 模式，桥接模式，和仅主机模式 2，各个模式之间的区别 桥接模式：虚拟系统可以和外部系统通讯，但是容易造成 IP 冲突 NAT 模式：网络地址转换模式，虚拟系统可以和系统通讯，不造成 IP 冲突 主机模式：独立的系统 二、linux 目录结构  1：linux 的文件系统是采用级层式的树状目录结构，在此结构中的最上层是根目录“&#x2F;”然后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux">
+<meta property="og:url" content="http://example.com/2022/11/05/linux/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="Linux 笔记 一.虚拟机相关知识： 1，网络连接模式：NAT 模式，桥接模式，和仅主机模式 2，各个模式之间的区别 桥接模式：虚拟系统可以和外部系统通讯，但是容易造成 IP 冲突 NAT 模式：网络地址转换模式，虚拟系统可以和系统通讯，不造成 IP 冲突 主机模式：独立的系统 二、linux 目录结构  1：linux 的文件系统是采用级层式的树状目录结构，在此结构中的最上层是根目录“&#x2F;”然后">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/5.png">
+<meta property="article:published_time" content="2022-11-05T05:51:58.000Z">
+<meta property="article:modified_time" content="2022-11-05T05:52:36.387Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/5.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/11/05/linux/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'linux',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-11-05 13:52:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/%E6%9E%97%E5%85%8B.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分裂</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 兴趣相关</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/5.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分裂</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 兴趣相关</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">linux</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-05T05:51:58.000Z" title="Created 2022-11-05 13:51:58">2022-11-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-11-05T05:52:36.387Z" title="Updated 2022-11-05 13:52:36">2022-11-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="linux"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Linux 笔记</p>
+<p><strong>一.虚拟机相关知识：</strong></p>
+<p>1，网络连接模式：NAT 模式，桥接模式，和仅主机模式</p>
+<p>2，各个模式之间的区别</p>
+<p>桥接模式：虚拟系统可以和外部系统通讯，但是容易造成 IP 冲突</p>
+<p>NAT 模式：网络地址转换模式，虚拟系统可以和系统通讯，不造成 IP 冲突</p>
+<p>主机模式：独立的系统</p>
+<p><strong>二、linux 目录结构</strong></p>
+<p><code> </code>1：linux 的文件系统是采用级层式的树状目录结构，在此结构中的最上层是根目录“/”然后在此目录下再创建其他的目录</p>
+<p><code> </code>2：Linux 的目录中每个文件夹存放的文件类别是由 linux 规定好的</p>
+<p><code> </code>3：在 linux 的世界里，一切皆文件</p>
+<p><strong>三、具体的目录结构：</strong></p>
+<p>/bin[常用]（/user/bin、/user/local/bin）</p>
+<p><code> </code>Binary 的缩写，这个目录存放这经常使用的命令</p>
+<p>/sbin（user/sbin、/usr/local/sbin）</p>
+<p><code> </code>s 就是 super user 的意思，这里存放的是系统管理员使用的系统管理程序</p>
+<p>/home[常用]</p>
+<p><code> </code>存放普通用户的主目录，在 Linux 中每个用户都有一个自己的目录，一般该目录是以用户的账号命名</p>
+<p>/root[常用]</p>
+<p><code> </code>该目录为系统管理员，也称作超级权限这的用户主目录</p>
+<p>/lib</p>
+<p><code> </code>系统开机所需要最基本的动态连接共享库，其作用类似与 Windows 里的 DLL 文件，几乎所有的应用程序都需要用到这些共享库</p>
+<p>/lost+found 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件</p>
+<p>/etc[常用]</p>
+<p><code> </code>所有的系统管理以及一些软件所需要的配置文件和子目录。如只能装 mysql 数据库 my.conf</p>
+<p>/usr[常用]</p>
+<p><code> </code>这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录</p>
+<p>/boot[常用]</p>
+<p><code> </code>存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件</p>
+<p>/proc</p>
+<p><code> </code>这个目录是一个虚拟的目录，它是系统内存的映射，访问这个目录来获取系统信息，一般不要随便乱动里面的文件</p>
+<p>/srv service 缩写，</p>
+<p><code> </code>该目录存放一些服务启动之后需要提取的数据 一般不要随便乱动里面的文件</p>
+<p>/sys</p>
+<p><code> </code>这是 Linux2.6 内核的一个很大的 vi 安华。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 一般不要随便乱动里面的文件</p>
+<p>/tmp</p>
+<p><code> </code>这个目录是用来存放一些临时文件的</p>
+<p>/dev</p>
+<p><code> </code>类似与 windows 的设备管理其，把所有的硬件用文件的形式存储</p>
+<p>/media[常用]</p>
+<p><code> </code>Linux 系统会自动识别一些设备，例如 U 盘，光驱等等，当识别后，Linux 会把识别的设备挂在道这个目录下</p>
+<p>/mnt[常用]</p>
+<p><code> </code>系统提供该目录是为了让用户临时挂在别的文件系统的，我们可以将外部的存储挂在/mnt 上，</p>
+<p><code> </code>然后进入该目录就可以查看里面的内容了。 d:/myshare</p>
+<p>/opt</p>
+<p><code> </code>这是给主机额外安装软件所摆放的目录。如安装 ORACLE 数据库就可以放到该目录下。默认为空</p>
+<p>/usr/loca[常用]</p>
+<p><code> </code>这是另一个给主句额外安装软件所安装的目录，一般是通过编译源码方式安装的程序</p>
+<p>/var[常用]</p>
+<p><code> </code>这个目录中存放着不断扩充的东西，习惯将经常修改的目录存放在这个目录下。包括日志文件</p>
+<p>/selinux[security-enhanced linux]</p>
+<p><code> </code>selinux 是一种安全子系统，它能控制程序只访问特点文件，有三种工作模式，可以自行设置。</p>
+<p><code> </code><strong>四、vi 与 vim</strong></p>
+<p><code> </code><strong>1.什么是 vi 和 vim</strong></p>
+<p><code> </code>vi 是 linux 系统内置的文本编辑器。vim 则可以看作 vi 的增强版本，可以主动的以字体颜色辨别语法的正确二点，方便程序设</p>
+<p><code> </code>计。具有代码不玩，编译以及错误跳转等方便编程的功能，在程序员中广泛使用</p>
+<p><code> </code><strong>2.vi 和 vim 常用的三种模式</strong></p>
+<p>正常模式：</p>
+<p><code> </code>以 vim/vi 打开一个档案就直接进入了一般模式（这是默认的模式）。在这个模式中，你可以是用[上下左右]按键来移动光</p>
+<p><code> </code>标，你可以使用[删除字符]或[删除整行]来处理档案内容，也可以使用[复制、粘贴]来处理你的文件数据</p>
+<p>插入模式：</p>
+<p><code> </code>按下 i、I 、o、O、a、A、r、R 等任何一个字母之后才会进入编辑模式，一般来所按 i 即可</p>
+<p>命令行模式：</p>
+<p><code> </code>输入 esc 再输入：即可进入命令行模式中，在这个模式当中，可以提供你相关指令，完成读取、存盘、替换、离开 vim、显</p>
+<p><code> </code>示行号等的操作</p>
+<p><code> </code><strong>3.vim 的基本快捷键</strong></p>
+<p><code> </code>:wq(保存退出) :q(退出，不保存)</p>
+<p><code> </code>:q!(强制退出，不保存)</p>
+<p><code> </code>yy(拷贝当前行) 数字 yy(拷贝当前行向下的的制定数字的行) p(粘贴)</p>
+<p><code> </code>dd(删除当前行) 数字 dd(删除当前行详细制定的行数)</p>
+<p><code> </code>/你想查找的关键字(在命令行下，/关键字，回车，从上倒下查找第一个出现的你想查找的关键字，输入 n 则查找下一个)</p>
+<p><code> </code>:set nu(显示当前文本的行号) set nonu(取消当前文本的行号)</p>
+<p><code> </code>在一般模式下输入 G 定位到文档的最末行，输入 gg 定位到文档首行</p>
+<p><code> </code>在一般模式下输入 u 撤销你上一步的操作</p>
+<p>ctrl+r 重做上一个动作</p>
+<p><code> </code>在一般模式下输入数字，再输入 shift+g 即可将光标定位到你指定行</p>
+<p><strong>五、Linux 的开机、重启和用户登录注销</strong></p>
+<p><code> </code>1.关机与重启</p>
+<p><code> </code>shutdown -h now 立刻进行关机</p>
+<p><code> </code>shutdown -h 数字 系统将在指定的时间之后进行关机（单位是分钟）</p>
+<p><code> </code>shtudown -h 数字 提示信息 系统将在指定的时间之后进行关机并向所有使用系统的用户发送提示信息</p>
+<p><code> </code>halt 关机作用和上面一样</p>
+<p><code> </code>reboot 现在重新启动计算机</p>
+<p><code> </code>sync 把内存的数据同步到磁盘</p>
+<p><code> </code>注意：</p>
+<p>1.不管是重启系统还是关闭系统，首先要运行 ysnc 命令把内存中的数据写到磁盘中</p>
+<p><code> </code>2.虽然目前 linux 不管是在重启还是关机等命令执行前都会自动执行 sync 命令，但是小心驶得万年船</p>
+<p><strong>六、Linux 用户注销和切换</strong></p>
+<p><code> </code>1.登录是尽量少用 root 账号，因为他是系统管理园，权限最大，避免操作失误，可以利用普通用户登录，登录后再用</p>
+<p>su -用户</p>
+<p><code> </code>名来切换系统管理园身份</p>
+<p><code> </code>2.在提示符输入 logout 即可注销用户</p>
+<p><code> </code>注意事项：logout 注销指令在图形运行级别无效，在运行级别 3 下才有效</p>
+<p><strong>七、Linux 的用户管理</strong></p>
+<p><code> </code>Lixux 系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必许首先向系统管理员申请一个账号，然 后以这个账号的身份进入系统</p>
+<p><code> </code><strong>1.添加用户：</strong></p>
+<p><code> </code>基本语法：useradd 用户名</p>
+<p><code> </code>注意：1.当创建用户成功，会自动的创建和用户同名的家目录。</p>
+<p><code> </code><strong>2.可以通过 useradd - d 指定目录 行动用户名 给新创建的用户指定家目录</strong></p>
+<p><code> </code>2.指定/修改密码：passwd 用户名 （如果没有指定用户名则是给当前用户指定密码）</p>
+<p><code> </code>pwd 显示当前登录的用户所在的目录</p>
+<p><code> </code>3.删除用户：userdel 用户名 删除用户但是保留用户的家目录</p>
+<p><code> </code>userdel -r 用户名 删除用户以及用户主目录（一般情况下建议保留用户的家目录）</p>
+<p><code> </code>4.查询用户信息命令：id 用户名（当用户名不存在是返回无此用户）</p>
+<p><code> </code>5.切换用户：在操作 Linux 中，如果当前用户的权限不够，可以通过 su -指令切换到搞权限用户，比如 root</p>
+<p><code> </code>su -切换用户名</p>
+<p><code> </code>注意：从权限搞的用户切换到权限帝的永不不用输入密码，反之需要当需要返回到原来用户时，可以使用 exit/logout 指令</p>
+<p><code> </code>6.whoami/who am i 查看当前用户/登录用户</p>
+<p><strong>八、用户组</strong></p>
+<p><code> </code>定义：类似于角色，系统可以对有共同权限的多个用户进行统一的管理</p>
+<p><code> </code>1.groupadd 组名 新增组</p>
+<p><code> </code>2.groupdel 组名 删除组</p>
+<p><code> </code>3.useradd -g 用户组 用户名 增加用户时直接加上组</p>
+<p><code> </code>4.usermod -g 用户组 用户名修改用户的组</p>
+<p><code> </code>用户和组的相关文件：</p>
+<p><code> </code>/etc/passwd 文件 /etc/group 文件</p>
+<p><code> </code>用户（user）的配置文件，记录用户的各种信息</p>
+<p><code> </code>每行的含义:用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录 shell</p>
+<p><code> </code>/etc/shadow 文件</p>
+<p><code> </code>口令的配置文件</p>
+<p><code> </code>每行的含义：登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</p>
+<p><code> </code>组（group）的配置文件，记录 Linux 包含的组的信息</p>
+<p><code> </code>每行含义：组名:口令:组标识号:组内成员列表</p>
+<p><strong>九 linux 常用命令</strong></p>
+<p><code> </code>1.linux 的运行级别</p>
+<p><code> </code>0：关机</p>
+<p><code> </code>1：单用户[找回丢失密码]</p>
+<p>2：多用户状态没有网络服务</p>
+<p>3：多用户状态有网络服务</p>
+<p>4：系统未使用保留给用户</p>
+<p>5：图形界面 6：系统重启</p>
+<p><code> </code>常用运行级别是 3 和 5，也可以指定默认运行级别</p>
+<p><code> </code>Init 【0~5】 切换系统的运行级别</p>
+<p><code> </code>更改 Linux 的默认运行级别</p>
+<p><code> </code>在 centOS7 以前 在/etc/inittab 文件中.</p>
+<p><code> </code>Multi-user.target:analogous to runlevel 3(Multi-user.target：类似于运行级 3)</p>
+<p><code> </code>Graphical.target:analogous to runlevel 5 (图形化。目标：类似于运行级别 5)</p>
+<p><code> </code>Systemctl get-default 获取当前系统的运行级别</p>
+<p><code> </code>Systemctl set-default 运行级别：设置系统默认的运行级</p>
+<p>Multi-user.target：运行级别 3，Graphical.target：运行级别 5 图形化界面）</p>
+<p><code> </code>Man 获得帮助信息</p>
+<p><code> </code>Man [命令或配置文件]（功能描述：获得帮助信息）</p>
+<p><code> </code>Help 指令</p>
+<p><code> </code>H 在 centOS7 之后进行了简化如下：</p>
+<p>elp 命令（获得 shell 内置命令的帮助信息）</p>
+<p><code> </code><strong>文件目录类</strong></p>
+<p><code> </code>绝对路径和相对路径（看下图）</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.001.png" alt="image1.png"></p>
+<p>pwd：显示当前工作目录的绝对路径</p>
+<p>Ls [选项] [目录或是文件] ：查看目录或文件里面的内容</p>
+<p>Ls -a：显示当前目录所有的文件和目录，包括隐藏的文件</p>
+<p>Ls - l：以列表的方式显示信息</p>
+<p>Ls -lh:以人更容易理解的方式查看</p>
+<p>cd [参数]（功能描述：切换到指定目录）</p>
+<p>cd ~或者 cd 回到自己的家目录</p>
+<p>cd ..回到当前目录的上一级目录</p>
+<p>Mkdir [选项] 要创建的目录名字（创建目录指令）</p>
+<p>Mkdir -p 要创建的目录名字 （创建多级目录）</p>
+<p><code> </code>Rmdir [选项] 要从删除的空目录名字（删除空目录）</p>
+<p>Rm -r 要删除的目录名字（删除非空目录 ）</p>
+<p>注意：删除非空目录是要小心谨慎</p>
+<p><code> </code>Tuoch 文件名称（创建空文件）</p>
+<p><code> </code>Cp [选项] 要拷贝的文件 把文件拷贝的到的文件夹（拷贝单个文件）</p>
+<p><code> </code>Cp -r 要拷贝的文件夹 把文件拷贝的到的文件（拷贝整个文件夹）</p>
+<p><code> </code>注意：如果复制的文件有与被复制的文件同名的文件则会强制替换原来目录 中的文件</p>
+<p>/Cp [选项] 要拷贝的文件 把文件拷贝的到的文件加（强制覆盖不提示）</p>
+<p>Rm [选项] 要删除的文件或目录（删除文件或目录）</p>
+<p>Rm -r 要删除的文件或目录 （递归删除整个文件）</p>
+<p>Rm -f 要删除的文件或目录（强制删除不提示）</p>
+<p>Mv 移动文件与目录或重命名（剪切）</p>
+<p>语法：</p>
+<p>Mv 被改名的文件 改名后的文件名（重命名文件）</p>
+<p>Mv 被移动文件的目录 移动后的文件目录 （移动文件）</p>
+<p>Cat [选项] 要查看的文件（以只读的方式查看文件）</p>
+<p>Cat -n 要查看的文件（以只读的方式查看文件并显示行号）</p>
+<p>注意：cat 只能浏览文件，而不能修改文件，为了浏览方便，一般会带上管</p>
+<p>命令 |more</p>
+<p>Cat 文件名 |more （分页浏览）</p>
+<p>More 命令：</p>
+<p>More 命令是一个基于 VI 编辑器的文本过滤器，它以全屏幕的方式按页显示</p>
+<p>本文件的内容，more 命令内置了若干快捷键，如下图</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.002.png" alt="image2.png"></p>
+<p>基本语法：</p>
+<p>More 要查看的文件</p>
+<p>less 命令：</p>
+<p>Less 命令用来分屏查看文件内容，它的功能与 more 命令类似，但是比 more 命令更加强大，支持各种显示终端。Less 指令在显示文件内容是，并不是一次将整个文件加载之后才显示，而是根据显示需要加载内容，对于显示大型文件有较高的效率</p>
+<p>基本语法：</p>
+<p>Less 要查看的文件</p>
+<p>快捷键一览：</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.003.png" alt="image3.png"></p>
+<p>&gt;命令 和 &gt;&gt;命令 &gt;命令输出重定向：会将原来的文件的内容股改</p>
+<p>&gt;&gt;追加：不会覆盖原来文件的内容，二十追加到文件的尾部</p>
+<p>基本语法：</p>
+<p>Ls &gt; 文件</p>
+<p>注意：如果被覆写的文件不存在则会创建该文件</p>
+<p>Echo [选项] [输出内容]（输出内容到控制台）</p>
+<p><code> </code>Head 文件（查看文件 10 行内容）</p>
+<p><code> </code>Hear -n 5 文件（查看文件头 5 行内容，5 可以是任意行数）</p>
+<p><code> </code>Tail 文件（查看文件后 10 行内容）</p>
+<p><code> </code>Tail -n 5 文件（查看文件后 5 行内容，5 可以是任意行数）</p>
+<p><code> </code>Tail -f 文件 （实时最总该文档的搜友更新，实际工作中经常使用）</p>
+<p><code> </code>Ln -s[原文件后目录] [软连接名]（给原文件创建一个软连接）</p>
+<p><code> </code>History</p>
+<p><code> </code>History （查看已经执行过的历史命令）</p>
+<p><code> </code>!数字:执行历史编号为输入的数字的指令</p>
+<p><code> </code>date：显示当前日期</p>
+<p><code> </code>date +%Y 显示当前年份</p>
+<p><code> </code>date +%m 显示当前年份</p>
+<p><code> </code>date +%d 显示当前是那一天</p>
+<p><code> </code>Date “+%F %T”显示当前时间年月日的时分秒</p>
+<p><code> </code>Date -s 字符串时间 设置当前系统的日期</p>
+<p>Find 命令将从指定目录向下递归地便利其各个子目录，将满足条件的目录或这文件显示在终端</p>
+<p>Find -name&lt;查询方式&gt;按照指定的文件名查找模式查找文件</p>
+<p>Find -user &lt;用户名&gt;查找属于指定用户名所有文件</p>
+<p>Find -size &lt;文件大小&gt;按照指定的文件大小查找文件</p>
+<p>Locate 命令可以快速定位文件路径，locate 命令利用事先建立的所有文件名称及路径的 locate 数据库事先快速定位给定的文件，locate 指令无需便利整个文件系统，查询速度较快，为了保证查询结果的准确度，管理员必须定期更新 locate 时刻</p>
+<p>Locate 要搜索的文件名</p>
+<p>说明：由于 locate 指令基于数据库进行查询，所以第一次运行前必须使用 updatedb 命令创建 locate 数据库</p>
+<p>grep 命令和管道符号 |</p>
+<p>Grap 过滤查找，管道符 | 表示将前一个命令的处理结果输出传递给后面的命令处理</p>
+<p>Grep [选项] 查找内容 源文件</p>
+<p>常用选项 -n 显示匹配行及行号</p>
+<p><code> </code>-i 忽略字母大小写</p>
+<p><code> </code>压缩解压类命令：</p>
+<p><code> </code>Gzip/gunzip :压缩/j 解压</p>
+<p><code> </code>Gzip 文件 将文件压缩成 .gz 文件</p>
+<p><code> </code>Gunzip 文件. 将 gz 文件解压</p>
+<p><code> </code>Zip/unzip：压缩/解压 这个命令在项目打包发布中很有用</p>
+<p><code> </code>Zip [选项] 压缩后的文件名.zip 将要压缩的内容（压缩文件和目录）</p>
+<p><code> </code>Unzip [选项] 压缩后的文件名.zip （解压文件）</p>
+<p>Tar 命令是打包命令，最后打包后的文件是.tar.gz 的文件（常用）</p>
+<p>Tar [选项] 打包后的文件名称 打包的内容（打包目录，压缩后的文件格式 tar.gz）</p>
+<p>选项</p>
+<p>-c 产生.tar 打包文件</p>
+<p>-v 显示详细信息</p>
+<p>-f 指定压缩后的文件名</p>
+<p>-z 打包同时压缩</p>
+<p>-x 解包.tar 文件</p>
+<p>注意：指定压缩到的那个目录，实现要存在才能成功，否则会报错</p>
+<p><strong>第十章：Linux 组基本介绍</strong></p>
+<p>在 linux 中的每个用户必须属于一个组，不能独立与组外。在 linux 中没个文件有所有者、所在组、其他组的概念</p>
+<p>文件/目录 所有者</p>
+<p>一般为文件的创建者，谁创建了该文件，就自然的成为该文件的所有者</p>
+<p>查看文件的所有者</p>
+<p>指令：ls -ahl 或 ll</p>
+<p>chown 用户名 文件名 （修改文件所有者）</p>
+<p>组的创建、更改用户组、和修改组的名字</p>
+<p><code> </code>1.groupadd 组名 新增组</p>
+<p><code> </code>2.groupdel 组名 删除组</p>
+<p><code> </code>3.useradd -g 用户组 用户名 增加用户时直接加上组</p>
+<p><code> </code>4.usermod -g 用户组 用户名修改用户的组</p>
+<p><code> </code>用户和组的相关文件：</p>
+<p><code> </code>/etc/passwd 文件 /etc/group 文件</p>
+<p>文件/目录 所在组</p>
+<p>当某个用户创建了一个文件后，这个文件的所在组就是该用户所在的组</p>
+<p>ls -ahl 或 ll (查看文件/目录所在组)</p>
+<p>chgrp 组名 文件名 （修改文件所在的组）</p>
+<p>其他组</p>
+<p>出文件的所有者和所在组的用户之外，系统的其他用户都是文件的其他组</p>
+<p>改变用户所在组</p>
+<p>在添加用户时，可以制定将该用户添加到那个组中，同样的用 root 的管理权限可以改变某个用户所在的组</p>
+<p>usermod -g 组名 用户名 （改变用户所在组）</p>
+<p>usermod -d 目录名 用户名 （改变该用户登录的初始目录）</p>
+<p>文件权限的基本介绍</p>
+<p>当输入 ls-l 时会显示如下内容</p>
+<p>-rwxrw-r– 1 root root 1213 Feb 2 09:39 abc</p>
+<p>0~9 位说明</p>
+<p>1.第 0 位确定文件类型（d，-，|，c，b）</p>
+<p>-是普通文件</p>
+<p>|是链接，相当于 windows 的快捷方式</p>
+<p>d 是目录，相当与 windows 的文件夹</p>
+<p>c 是字符设备文件，如鼠标，键盘等</p>
+<p>b 是块设备，比如硬盘</p>
+<p>2.1~3 位确定所有者（该文件的所有者）拥有该文件的权限。——user</p>
+<p>3.4~6 位确定所属组（同用户组的）拥有该文件的权限——group</p>
+<p>第 7~9 位确定其他用户拥有该文件的权限——other</p>
+<p>rwx 权限详解</p>
+<p>作用到文件</p>
+<p>[r]代表可读(red):可以读取，查看</p>
+<p>[2]代表可写(write):可以修改，但是不代表可以删除该文件,删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件。</p>
+<p>[x]代表可执行(execute):可以被执行</p>
+<p>作用到目录</p>
+<p>[r]代表可读(read):可以读取，ls 查看目录内容</p>
+<p>[w]代表可写(write):可以修改，对目录创建+删除+重命名目录</p>
+<p>[x]代表可执行(execute):可以进入该目录</p>
+<p>-rwxrw-r– 1 root root 1213 Feb 2 09:39 abc</p>
+<p>10 个字符确定不同用户能对文件干什么</p>
+<p>第一个字符代表文件类型：- l d c b</p>
+<p>其余字符每 3 个一组（rwx）读（r）写（w）执行（x）</p>
+<p>第一在 rwx：文件拥有者的权限是读、写和执行</p>
+<p>第二组 rw-：与文件拥有者用一组文件的权限是读、写但不能执行</p>
+<p>第三组 r–：不与文件拥有者同组的其他用户的权限是读不能写和执行</p>
+<p>可用数字表示为：r=4，w=2，x=1 因此 rwx=7</p>
+<p>其他说明</p>
+<p>1 文件：硬链接数或目录：子目录数</p>
+<p>第一个 root 表示用户</p>
+<p>第二个 root 表示用户所在组</p>
+<p>1213 文件大小（字节），如果是文件夹，显示 4096 字节</p>
+<p>Feb 2 09:39 最后修改日期</p>
+<p>Abc 文件名</p>
+<p>修改文件权限</p>
+<p>通过 chmod 命令，可以修改文件或者目录的权限</p>
+<p>第一种方式：通过+、-、=变更权限</p>
+<p>chmod u=rwx ,g=rx,o=x 文件/目录名</p>
+<p>Chmod o+w 文件/目录名</p>
+<p>Chmod a-x 文件/目录名</p>
+<p>第二种方式：通过数字变更权限</p>
+<p>r=4 w=2 x=1 rwx=4+2+1=7</p>
+<p>Chmod u=rwx,g=rx,o=x 文件目录名</p>
+<p>相当于 chmod 751 文件/目录名</p>
+<p>修改文件所有者</p>
+<p>Chown 新的用户名 文件/目录 改变所有者</p>
+<p>Chown 新的用户名 新的用户组 文件/目录 改变文件所有者和所属组</p>
+<p>-R 如果是目录，则使其下所有子文件或目录递归生效</p>
+<p>修改文件/目录所在组</p>
+<p>Chfrp newgroup 文件/目录 （改变所在组）</p>
+<p><strong>第十一章：定时 linux 任务调度</strong></p>
+<p>Crontab 进行 定时任务的设置</p>
+<p>概述</p>
+<p>任务调度：是指系统在某个时间执行的特定的命令或程序</p>
+<p>任务调度分类：1.系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等</p>
+<p>个别用户工作：个别用户可能希望执行某些程序，比如对 mysql 数据库的备份</p>
+<p>基本语法：</p>
+<p>Crontab [选项]</p>
+<p>-e 编辑 crondtab 定时任务</p>
+<p>-l 查询 crondtab 任务</p>
+<p>-r 删除当前用户所有的 crondtab 任务</p>
+<p>快速入门</p>
+<p>设置任务调度文件：/etc/crontab</p>
+<p>设置个人任务调度。执行 crontab -e 命令</p>
+<p>接着输入任务到调度文件</p>
+<p>如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt 命令</p>
+<p>占位符的说明</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.004.png" alt="image4.png"></p>
+<p>特殊符号说明</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.005.png" alt="image5.png"></p>
+<p>Crond 相关指令</p>
+<p>Crontab -r 终止任务调度</p>
+<p>Crontab -l 列出当前有那些任务调度</p>
+<p>Service crond restart [重启任务调度]</p>
+<p>at 定时任务调度</p>
+<p>at 命令是一次性定时计划任务，at 的守护进程 atd 会以后台模式运行，检查作业队列来运行。</p>
+<p>默认情况下，atd 守护进程每 60 秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
+<p>at 命令是一次性定时激活任务，执行完一个任务后不在执行此任务了</p>
+<p>在使用 at 命令的时候，一定要保证 atd 进程的启动，可以使用相关指令来查看</p>
+<p>格式：at [选项] [时间] ctrl +D 结束 at 命令的输入</p>
+<p>使用 ps -ef | grep atd 命令可以检测 atd 是否在运行</p>
+<p>at 命令的时间定义</p>
+<p>at 指定时间的方法：</p>
+<p>1、能够接受在当天的 hh:mm（小时:分钟）式的时间指定。假如该时间已过去，那么就放在第二天执行。 2、能够使用 midnight（深夜），noon（中午），teatime（饮茶时间，一般是下午 4 点）等比较模糊的词语来指定时间。 3、能够采用 12 小时计时制，即在时间后面加上 AM（上午）或 PM（下午）来说明是上午还是下午。 4、能够指定命令执行的具体日期，指定格式为 month day（月 日）或 mm/dd/yy（月/日/年）或 dd.mm.yy（日.月.年），指定的日期必须跟在指定时间的后面。 5、能够使用相对计时法。指定格式为：now + count time-units ，now 就是当前时间，time-units 是时间单位，这里能够是 minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count 是时间的数量，几天，几小时。 6、能够直接使用 today（今天）、tomorrow（明天）来指定完成命令的时间。</p>
+<p>at 命令的选项</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.006.png" alt="image6.png"></p>
+<p>其他相关的指令</p>
+<p>atq：列出用户的计划任务，如果是超级用户将列出所有用户的任务，输出结果的格式为:作业号、日期、小时、队列和用户名</p>
+<p>atrm 删除 at 任务</p>
+<p><strong>第十二、linux 磁盘分区、挂载</strong></p>
+<p>Linux 分区原理介绍</p>
+<p>对 linux 无论有几个分区，分给哪一个目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构，linux 中每个分区都是用来组成整个文件系统的一部分</p>
+<p>Linux 采用了一种叫”载入”的处理方法，他的整个文件系统中包含了一整套的文件和目录，且将一个分区和一个目录联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</p>
+<p>硬盘说明</p>
+<p>1.linux 硬盘分 IDE 硬盘和 ScSI 硬盘，目前基本上是 SCSI 硬盘</p>
+<p>2.对于 IDE 硬盘，驱动器标识符为“hdx<del>”其中“hd”表示分区所在设备的类型，这里是指 IDE 硬盘了。“x”为盘号（a 为基本盘，b 为基本从属盘，c 为辅助主盘，d 为辅助从属盘），“</del>”代表分区前四个分区用数字 1 到 4 表示，他们是主分区或扩展分区，从 5 开始就是逻辑分区。例，hda3 表示为第一个 IDE 硬盘上的第三个主分区或扩展分区，hdb2 表示为第二个 IDE 硬盘上的第二个主分区或扩展分区。</p>
+<p>3.对于 SCSI 硬盘则表示为“sdx~”，SCSI 硬盘是用”sd”来表示分区所在设备的类型的，其余则和 IDE 硬盘的表示方法一样</p>
+<p>lsblk 或者 lsblk -f （查看所有设备挂载情况）</p>
+<p>给 linux 添加磁盘的步骤</p>
+<p>1.添加磁盘</p>
+<p>2.给磁盘分区</p>
+<p>3.给磁盘格式化</p>
+<p>4.让磁盘挂载到一个目录上</p>
+<p>5.设置磁盘可以自动挂载</p>
+<p>步骤详细分解：</p>
+<p>1.虚拟机在设置里选择添加磁盘/物理机直接插到主机上即可</p>
+<p>2.分区命令：fdisk 创建磁盘文件存放的目录（默认是/dev 下面）</p>
+<p>开始对/sdb 分区</p>
+<p>m 显示命令列表</p>
+<p>p 显示磁盘分区，同 fdisk -l</p>
+<p>n 新增分区</p>
+<p>d 删除分区</p>
+<p>w 写入并退出</p>
+<p>说明：开始分区后输入 n，新增分区，然后选择 p，分区类型为主分区。两次回车默认剩余全部空间。最后输入 w 写入分区并退出，若不保存退出输入 q</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.007.png" alt="捕获.PNG"></p>
+<p>3.格式化磁盘</p>
+<p>分区命令 mkfs -t ext4 dev/sdb1</p>
+<p>注：其中的 ext4 是分区的类型</p>
+<p>4.挂载分区到目录</p>
+<p>命令：mount 设备名称 挂载目录（将目录挂载到分区）</p>
+<p>命令：umount 设备名称 或者挂载的目录 （取消分区的挂载）</p>
+<p>注:用命令行挂载时，重启后会失效</p>
+<p>5 永久挂载磁盘：通过修改/etc/fstab 时间挂载</p>
+<p>添加完成后，执行 mount -a 即刻生效</p>
+<p><img src="Aspose.Words.99335232-2ec2-4320-8215-2c4ee4a1186b.008.png" alt="捕获.PNG"></p>
+<p>df -h （查询系统整体磁盘使用情况）</p>
+<p>du -h（查询制定目录的磁盘占用情况，默认为当前目录）</p>
+<p><code> </code>-s（制定目录占用大小汇总）</p>
+<p>-h（带计量单位的显示）</p>
+<p>-a（含文件）</p>
+<p>–max-depth=1（子目录深度）</p>
+<p>-c（列出明细的同事，增加汇总值）</p>
+<p>wc [选项] 文件 可以查看文件的 byte 数、字数、或是列数</p>
+<p>-c 显示 byte 数</p>
+<p>-l 显示行数</p>
+<p>-w 显示字数</p>
+<p>tree 要查看的目录 （以树状结构显示目录中的文件，如果没有 tree 命令，则使用 yum nstaall tree 命令来安装 tree）</p>
+<p><strong>第十三章、网络配置</strong></p>
+<p>听不懂之后在补笔记</p>
+<p><strong>第十四章、进程管理（重点）</strong></p>
+<p>一、基本介绍</p>
+<p>1.在 linux 中，每个执行的程序都成为一个进程。每一个进程都分配一个 ID 号（pid，进程号）。</p>
+<p>3.每个进程都可能以两种方式存在的。前台与后台，所谓前台进程就是用户目前的屏幕上可以进行操作的。后台进程则是实际在操作，但由于屏幕上无法看到的进程，通常使用后台方式执行</p>
+<p>3.一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中。知道关机才结束</p>
+<p>二、显示系统执行的进程</p>
+<p>1、ps 命令是用来查看目前系统中，有那些正在执行，以及他们执行的状况，可以不加任何参数。</p>
+<p>ps -a 列出所有的进程</p>
+<p>ps -w 显示加宽可以显示较多的资讯</p>
+<p>ps -au 显示较详细的资讯</p>
+<p>ps -zux 显示所有包含其他使用者的进程</p>
+<p>2、aux 输出格式：</p>
+<p>USER PID %CPU %MEN VSZ TTY STAT START TIME COMMAND</p>
+<p>USER：进程拥有者</p>
+<p>PID：pid</p>
+<p>%CPU：占用的 CUP 使用率</p>
+<p>%MEM：占用的虚拟内存大小</p>
+<p>RSS：占用的内存大小</p>
+<p>TTY：终端的次要装置号码</p>
+<p>STAT：该进程的状态：</p>
+<p>D：无法中断的休眠状态（通常 IO 的进程）</p>
+<p>R：正在执行中</p>
+<p>S：静止状态</p>
+<p>T：暂停执行</p>
+<p>Z：不存在但暂时无法消除</p>
+<p>W：没有足够的内存可以分配</p>
+<p>&lt;：高优先级的进程</p>
+<p>N：低优先级的进程</p>
+<p>L：有内存分配并锁在内存体内（实时系统）</p>
+<p>START：进程考试时间</p>
+<p>TIME：执行的时间</p>
+<p>COMMAND：所执行的命令</p>
+<p>3、ps -ef 是以全格式显示当前所有的进程</p>
+<p><code> </code>-e 显示所有进程 -f 全格式</p>
+<p>ps -ef 显示格式：</p>
+<p>UID PID PPID C STIME TTY TIME CMD</p>
+<p>UID：用户的 ID</p>
+<p>PID：进程 ID</p>
+<p>PPID：父进程 ID</p>
+<p>C：CPU 用于计算执行优先级的因子。数值越大，表明进程是 CPU 密集型运算，执行优先级会降低：数值越小，表明进程是 I/O 密集型运算，执行优先级会提高</p>
+<p>STIME：进程启动的时间</p>
+<p>TTY：完整的终端名称</p>
+<p>TIME：CUP 时间</p>
+<p>CMD：启动进程所用的命令和参数</p>
+<p>三、终止进程 kill 和 killall</p>
+<p>1、介绍：若是某个进程执行一半需要停止时，或是已消耗了大量的系统资源时，此时可以考虑停止该进程，使用 kill 命令来完成此项任务</p>
+<p>2、kill [选项] 进程号（通过进程号杀死/终止进程）</p>
+<p><code> </code>killall 进程名称（通过进程名称来杀死进程，支持通配符，这在系统因负载过大而变得很慢时很有用）</p>
+<p><code> </code>kill -1 进程号（重新加载进程）</p>
+<p><code> </code>kill -9 强制杀死一个进程</p>
+<p><code> </code>kill -15 正常停止一个进程</p>
+<p>3、pstree [选项] 以树状方式查看进程信息</p>
+<p><code> </code>-p：显示进程的 PID</p>
+<p><code> </code>-u：显示进程的所属用户</p>
+<p>四、服务（service）管理</p>
+<p>1、服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待你其他程序的请求，比如（musqld，sshd，防火墙等）,因此我们又称为守护进程，是 linux 中非常重要的知识点</p>
+<p>2、service 管理命令</p>
+<p>一、service 服务名[ start（启动） | stop（停止） | reload（重新加载） | status（查看状态） ]</p>
+<p>二、在 CentOS7.0 后 很多服务不在使用 service，而是使用 systemctl</p>
+<p>三、service 指令管理的服务在 /etc/init.d 文件里面查看</p>
+<p>操作案例：</p>
+<p>请使用 service 命令，查看，关闭，启动 network</p>
+<p>3、查看服务名</p>
+<p><code> </code>1、方式 1：使用 setup 系统服务就可以看到全部</p>
+<p><code> </code>2、查看/etc/inin,d 文件即可看到 service 指令管理的服务</p>
+<p>4、chkconfig 命令</p>
+<p><code> </code>chkconfig 命令可以给服务的各个运行级别设置自 启动/关闭</p>
+<p><code> </code>chkconfig 命令管理的服务在/etc/init.d 查看</p>
+<p><code> </code>注意：在 CentOS7.0 后，很多服务使用 systemctl 管理</p>
+<p><code> </code>基本语法：</p>
+<p>1、chkconfig 服务名 –list 列出 chkconfig 所知道的所有命令</p>
+<p>2、chkconfig –level 数字 服务名 on/off （在制定的运行级别下自启动或关闭程序）</p>
+<p>操作案例：把 network 服务在运行级别 3 下关闭或自启动</p>
+<p>5、systemctl 管理命令</p>
+<p>一、基本语法：</p>
+<p><code> </code>systemctl [ start（启动） | stop（停止） | reload（重新加载） | status（查看状态） ] 服务名</p>
+<p><code> </code>systemctl list-unit-files 查看服务开机启动状态</p>
+<p><code> </code>systemctl enable 服务名（设置服务开机启动）</p>
+<p><code> </code>systemctl disable 服务名（关闭服务开机启动）</p>
+<p><code> </code>systemctl is-enabled 服务名（查询某个服务是否启动）</p>
+<p><code> </code>使用案例：查看当前防火强的状况，关闭防火墙和重启防火墙 firewalld.service</p>
+<p><code> </code>注意：如使用 start/stop 开启或关闭服务时，这种方式只是临时生效，当重启系统后，还是回归以前对服务的设置</p>
+<p><code> </code>如果想要设置某个服务自启动或永久关闭请使用 enable/;disable 来使用</p>
+<p>6、打开或关闭防火墙指定端口</p>
+<p>1、在真正的生产环境中，往往需要将防火墙打开，但问题来啦，如果我们把防火墙打开，那么外部请求数据包就不能跟服务器啊监听端口通讯。这时，就需要打开指定的端口，比如 80,22,8080 等。</p>
+<p>2.firewall 命令：</p>
+<p>firewall-cmd –list-all(查看防火墙所有信息)</p>
+<p>firewall-cmd –list-ports(查看防火墙开放的端口信息)</p>
+<p>firewall-cmd –permancnt –add-port=端口号/协议 打开端口</p>
+<p>firewall-cmd –permancnt –remoce-port=端口号/协议 关闭端口</p>
+<p>firewall-cmd –reload 重新载入才能是改变生效</p>
+<p>firewall-cmd –query-port=端口/协议 查询端口是否开放</p>
+<p>应用案例：</p>
+<p>启用防火墙，测试 111 端口是否能 telnet</p>
+<p>开放 111 端口</p>
+<p>关闭 111 端口</p>
+<p>7、动态监控进程</p>
+<p>top 命令与 ps 命令很相似它们都是用来显示正在执行的进程，top 与 ps 最大不同支出在于 top 在执行一段时间可以更新正在运行的进程</p>
+<p>top -d 秒数 指定 top 命令每隔几秒更新，默认是 3 秒</p>
+<p>top -i 使 top 不显示任何闲置或僵死进程</p>
+<p>top -p 通过指定监控进程 ID 来仅仅监控某个进程的状态</p>
+<p>交互操作</p>
+<p>p 以 cpu 使用率排序，默认就是此项</p>
+<p>m 以内存的使用率排序</p>
+<p>n 以 PID 排序</p>
+<p>q 退出 top</p>
+<p>k 杀死进程</p>
+<p>应用案例</p>
+<p>监视特定用户，比如 tom</p>
+<p>终止指定的进程比如，结束 tom 登录</p>
+<p>8.监控网络状态</p>
+<p>netstat [选项]</p>
+<p>-an 按一定顺序排序输出</p>
+<p>-p 显示那个进程在调用</p>
+<p>应用案例</p>
+<p>查看服务名为 sshd 的服务的信息</p>
+<p>ping 是一种网络检测工具，它主要是用检测远程主机是否正常，或是两部主机间的网线或网卡故障</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/11/05/linux/">http://example.com/2022/11/05/linux/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/5.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/%E6%9E%97%E5%85%8B.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jihaobin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jihaobin" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2644263665@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/05/linux/" title="linux"><img src="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux"/></a><div class="content"><a class="title" href="/2022/11/05/linux/" title="linux">linux</a><time datetime="2022-11-05T05:51:58.000Z" title="Created 2022-11-05 13:51:58">2022-11-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善." data-fontsize="18px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
