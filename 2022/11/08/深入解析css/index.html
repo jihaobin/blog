@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>深入解析css读书笔记 | blog</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深入解析 css 读书笔记第一章 层叠、优先级和继承 1.1.层叠层叠是一些列规则。它决定了如何解决冲突，是 css 语言的基础。当声明冲突是，层叠会依据下面三种条件解决从冲突   样式表的来源：样式是从哪里来的，包括你的样式和浏览器默认样式等。  选择器的优先级：那些选择器比另一些选择器更重要  源码顺序：样式在样式表里的生命顺序    1.1.1 样式表的来源你添加到网页里的样式表并不是浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入解析css读书笔记">
+<meta property="og:url" content="http://example.com/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="深入解析 css 读书笔记第一章 层叠、优先级和继承 1.1.层叠层叠是一些列规则。它决定了如何解决冲突，是 css 语言的基础。当声明冲突是，层叠会依据下面三种条件解决从冲突   样式表的来源：样式是从哪里来的，包括你的样式和浏览器默认样式等。  选择器的优先级：那些选择器比另一些选择器更重要  源码顺序：样式在样式表里的生命顺序    1.1.1 样式表的来源你添加到网页里的样式表并不是浏览器">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/4.jpg">
+<meta property="article:published_time" content="2022-11-08T07:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-08T06:54:27.173Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/4.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深入解析css读书笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-08 14:54:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/%E6%9E%97%E5%85%8B.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分裂</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 兴趣相关</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/4.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分裂</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 兴趣相关</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深入解析css读书笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-08T07:00:00.000Z" title="Created 2022-11-08 15:00:00">2022-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-11-08T06:54:27.173Z" title="Updated 2022-11-08 14:54:27">2022-11-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深入解析css读书笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="深入解析-css-读书笔记"><a href="#深入解析-css-读书笔记" class="headerlink" title="深入解析 css 读书笔记"></a><strong>深入解析 css 读书笔记</strong></h1><h2 id="第一章-层叠、优先级和继承"><a href="#第一章-层叠、优先级和继承" class="headerlink" title="第一章 层叠、优先级和继承"></a>第一章 层叠、优先级和继承<br><br></h2><ul>
+<li><h2 id="1-1-层叠"><a href="#1-1-层叠" class="headerlink" title="1.1.层叠"></a>1.1.层叠</h2><p>层叠是一些列规则。它决定了如何解决冲突，是 css 语言的基础。<br>当声明冲突是，层叠会依据下面三种条件解决从冲突 <br></p>
+<ul>
+<li><p>样式表的来源：样式是从哪里来的，包括你的样式和浏览器默认样式等。<br></p>
+</li>
+<li><p>选择器的优先级：那些选择器比另一些选择器更重要<br></p>
+</li>
+<li><p>源码顺序：样式在样式表里的生命顺序<br></p>
+<p><img src="/.com//%E5%B1%82%E5%8F%A0%E7%9A%84%E9%AB%98%E7%BA%A7%E6%B5%81%E7%A8%8B%E5%9B%BE.PNG" alt="层叠的流程图"></p>
+</li>
+</ul>
+<h3 id="1-1-1-样式表的来源"><a href="#1-1-1-样式表的来源" class="headerlink" title="1.1.1 样式表的来源"></a>1.1.1 样式表的来源</h3><p>你添加到网页里的样式表并不是浏览器唯一使用的样式表，还有其他类型或来源的样式表。</p>
+<p>你的样式表属于作者样式表除此之外还有用户代理样式表，即浏览器默认样式。用户代理样式表优先级低，你的样式会覆盖他们<br>但是样式来源规则有一个例外<br></p>
+<p><strong>!important 标记了这个生命的属性的优先级为最高</strong></p>
+<p>因此总体来所优先级按照由高到低排列如下所示：</p>
+<ul>
+<li>作者的 !importtant</li>
+<li>作者</li>
+<li>用户代理</li>
+</ul>
+<h2 id="1-1-2-理解优先级"><a href="#1-1-2-理解优先级" class="headerlink" title="1.1.2 理解优先级"></a>1.1.2 理解优先级</h2><p>如果无法来源解决冲突声明，浏览器会检查他们的优先级<br><br>浏览器将优先级分为行内样式和选择器的样式<br></p>
+<ul>
+<li>行内样式：如果用 HTML 的 style 属性，这个声明指挥作用于当前元素。实际上行内元素属于“带作用域的”声明，它会覆盖任何来自样式表或者&lt;style&gt;标签的样式。行内样式没有选择器，因为它们直接作用域所在的元素。</li>
+<li>选择器优先级：优先级的第二部分有选择器决定。比如，有两个类名的选择器比只有一个类名的选择器优先级更高<ul>
+<li>不同类型的选择器有不同的优先级，比如，ID 选择器比类选择器优先级更高。</li>
+<li>优先级的准确规则如下。<ul>
+<li>如果选择器的 ID 数量更多，则它会胜出（即它更明确）</li>
+<li>如果 ID 数量一致，那么拥有做多类的选择器胜出。</li>
+<li>如果以上两次比较都椅子和，那么拥有最多标签名的选择器胜出</li>
+</ul>
+</li>
+<li>优先级标记:常用的表示优先级的方式是用数值形式来标记，通常用都好隔开每个数，比如“1，2，2”表示有 1 个 ID 选择器、2 个类、2 个标签组成。<br><img src="/.com//%E4%BC%98%E5%85%88%E7%BA%A7%E6%A0%87%E8%AE%B0.PNG" alt="优先级标记"></li>
+<li>关于优先级的思考： <strong>最好让优先级尽可能低，这样当需要覆盖一些样式时，才能有选择空间</strong></li>
+</ul>
+</li>
+<li><h3 id="1-1-3-源码顺序"><a href="#1-1-3-源码顺序" class="headerlink" title="1.1.3 源码顺序"></a>1.1.3 源码顺序</h3>如果两个声明的来源和优先级相同，其中一个声明在样式表中出现较晚，则该声明胜出<br> 链接样式的的顺序规则链接(link)、访问(visited)、悬停(hover)、激活(active)</li>
+<li><h3 id="1-1-4-经验法则"><a href="#1-1-4-经验法则" class="headerlink" title="1.1.4 经验法则"></a>1.1.4 经验法则</h3>1.在选择器中不要使用 ID<br>2.不要使用!important</li>
+</ul>
+</li>
+<li><h2 id="1-2-继承"><a href="#1-2-继承" class="headerlink" title="1.2 继承"></a>1.2 继承</h2><p><img src="/.com//%E7%BB%A7%E6%89%BF%E6%A0%91%E7%8A%B6%E5%9B%BE.PNG" alt="继承树状图"><br>不是所有的属性都能被继承。默认情况下，只有特定的一些属性能被继承，通常是我们希望被继承的那些。他们主要是跟文本相关的属性</p>
+</li>
+<li><h2 id="1-3-特殊值"><a href="#1-3-特殊值" class="headerlink" title="1.3 特殊值"></a>1.3 特殊值</h2><ul>
+<li><h4 id="1-3-1-使用-inherit-关键字"><a href="#1-3-1-使用-inherit-关键字" class="headerlink" title="1.3.1 使用 inherit 关键字"></a>1.3.1 使用 inherit 关键字</h4>使用 inherit 关键字，可以用它来覆盖另一个值，这样该元素就会继承其父元素的值<br>还可以使用 inherit 关键字强制继承一个通常不会被继承的属性，比如边框和内边距。通常在实践中很少这么做，</li>
+<li><h4 id="1-3-2-使用-initial-关键字"><a href="#1-3-2-使用-initial-关键字" class="headerlink" title="1.3.2 使用 initial 关键字"></a>1.3.2 使用 initial 关键字</h4>initial 关键字可以将属性的值充值为默认值<h3 id="注意auto-不是所有属性的默认值"><a href="#注意auto-不是所有属性的默认值" class="headerlink" title="注意auto 不是所有属性的默认值"></a><strong>注意</strong>auto 不是所有属性的默认值</h3></li>
+</ul>
+</li>
+<li><h2 id="1-4-简写属性"><a href="#1-4-简写属性" class="headerlink" title="1.4 简写属性"></a>1.4 简写属性</h2><p>简写属性可以是代码简洁明了，但是也隐藏了一些怪异行为</p>
+<ul>
+<li><h3 id="1-4-1"><a href="#1-4-1" class="headerlink" title="1.4.1"></a>1.4.1</h3>大多数简写属性可以省略一些值，只指定我们关注的值。但是要知道，这样做仍然会设置省略的值，即他们会被隐式地设置为初始值。</li>
+<li><h3 id="1-4-2-理解简写值的顺序"><a href="#1-4-2-理解简写值的顺序" class="headerlink" title="1.4.2 理解简写值的顺序"></a>1.4.2 理解简写值的顺序</h3>有很多属性的值很模糊。在这种情况下，值的顺序很关键。<br> 如果属性需要指定从一个点出发的两个方向的值，就想想“笛卡尔网格”<br> 如果属性需要指定一个元素四个方向的值，就想想“时钟”</li>
+</ul>
+</li>
+</ul>
+<h2 id="第一章总结"><a href="#第一章总结" class="headerlink" title="第一章总结"></a>第一章总结</h2><ul>
+<li>控制选择器的优先级</li>
+<li>不要混淆层叠和继承</li>
+<li>某些属性会被继承，包括文本，列表，表格边框相关的属性</li>
+<li>不要混淆 initial 和 auto 值</li>
+<li>简写属性要注意上，右，下，左的顺序</li>
+</ul>
+<h2 id="第二章-相对单位"><a href="#第二章-相对单位" class="headerlink" title="第二章 相对单位"></a>第二章 相对单位</h2><p>相对单位使得我们可以基于窗口大小来等比例地缩放字号而不是固定为 14px，<br>或者将网页上的任何元素的大小都相对于基础字号来设置，然后只用改一行代码就能缩放整个网页</p>
+<ul>
+<li>em 和 rem</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/">http://example.com/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/11/05/linux/"><img class="next-cover" src="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">linux</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/%E6%9E%97%E5%85%8B.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jihaobin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jihaobin" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2644263665@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-css-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">深入解析 css 读书笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%B1%82%E5%8F%A0%E3%80%81%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E7%BB%A7%E6%89%BF"><span class="toc-number">1.1.</span> <span class="toc-text">第一章 层叠、优先级和继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%B1%82%E5%8F%A0"><span class="toc-number">1.2.</span> <span class="toc-text">1.1.层叠</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.1.1 样式表的来源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-2-%E7%90%86%E8%A7%A3%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.3.</span> <span class="toc-text">1.1.2 理解优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-%E6%BA%90%E7%A0%81%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.1.3 源码顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4-%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.1.4 经验法则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%BB%A7%E6%89%BF"><span class="toc-number">1.4.</span> <span class="toc-text">1.2 继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E7%89%B9%E6%AE%8A%E5%80%BC"><span class="toc-number">1.5.</span> <span class="toc-text">1.3 特殊值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E4%BD%BF%E7%94%A8-inherit-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">1.3.1 使用 inherit 关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E4%BD%BF%E7%94%A8-initial-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">1.3.2 使用 initial 关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8Fauto-%E4%B8%8D%E6%98%AF%E6%89%80%E6%9C%89%E5%B1%9E%E6%80%A7%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="toc-number">1.5.1.</span> <span class="toc-text">注意auto 不是所有属性的默认值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">1.6.</span> <span class="toc-text">1.4 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1"><span class="toc-number">1.6.1.</span> <span class="toc-text">1.4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-%E7%90%86%E8%A7%A3%E7%AE%80%E5%86%99%E5%80%BC%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.6.2.</span> <span class="toc-text">1.4.2 理解简写值的顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">第一章总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%9B%B8%E5%AF%B9%E5%8D%95%E4%BD%8D"><span class="toc-number">1.8.</span> <span class="toc-text">第二章 相对单位</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/" title="深入解析css读书笔记"><img src="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入解析css读书笔记"/></a><div class="content"><a class="title" href="/2022/11/08/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90css/" title="深入解析css读书笔记">深入解析css读书笔记</a><time datetime="2022-11-08T07:00:00.000Z" title="Created 2022-11-08 15:00:00">2022-11-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/05/linux/" title="linux"><img src="/images/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux"/></a><div class="content"><a class="title" href="/2022/11/05/linux/" title="linux">linux</a><time datetime="2022-11-05T05:51:58.000Z" title="Created 2022-11-05 13:51:58">2022-11-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善." data-fontsize="18px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
